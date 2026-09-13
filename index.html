@@ -3,494 +3,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#07111f">
-<title>Calculadora USDT • Operaciones</title>
+<meta name="theme-color" content="#08111f">
+<title>Calculadora USDT • CUP</title>
 
 <style>
 *{
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
   margin:0;
   padding:0;
-}
-
-:root{
-  --bg:#060b13;
-  --panel:#0d1624;
-  --panel2:#111e2f;
-  --border:#22334a;
-  --text:#f3f7fc;
-  --muted:#8fa1b7;
-  --blue:#2d8cff;
-  --blue2:#56b4ff;
-  --green:#22c981;
-  --red:#ff5364;
-  --yellow:#ffc857;
-  --cyan:#35d9ff;
-  --shadow:0 15px 45px rgba(0,0,0,.35);
-}
-
-html{
-  scroll-behavior:smooth;
+  background:#07101d;
+  color:#f4f7fb;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  background:
-    radial-gradient(circle at 20% 0%,rgba(45,140,255,.12),transparent 30%),
-    radial-gradient(circle at 90% 10%,rgba(53,217,255,.08),transparent 25%),
-    var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
   min-height:100vh;
-  overflow-x:hidden;
 }
 
-button,
-input,
-select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.app{
+.container{
   width:100%;
-  max-width:1100px;
+  max-width:720px;
   margin:auto;
-  padding:16px;
+  padding:16px 12px 40px;
 }
 
 .header{
-  background:linear-gradient(145deg,#101d30,#0b1421);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:20px;
+  background:linear-gradient(145deg,#10233c,#0a1728);
+  border:1px solid #1d3857;
+  border-radius:22px;
+  padding:20px 16px;
   margin-bottom:14px;
-  box-shadow:var(--shadow);
-  animation:appear .45s ease;
+  box-shadow:0 12px 35px rgba(0,0,0,.28);
 }
 
-.header-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo-icon{
-  width:48px;
-  height:48px;
-  border-radius:15px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#1476ed,#36c9ff);
+.header h1{
+  margin:0;
   font-size:25px;
-  box-shadow:0 8px 25px rgba(45,140,255,.25);
 }
 
-h1{
-  font-size:21px;
-  line-height:1.15;
-}
-
-.subtitle{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.status{
-  border:1px solid rgba(34,201,129,.25);
-  background:rgba(34,201,129,.08);
-  color:var(--green);
-  border-radius:30px;
-  padding:8px 11px;
-  font-size:11px;
-  white-space:nowrap;
+.header p{
+  margin:7px 0 0;
+  color:#9eb0c7;
+  font-size:13px;
 }
 
 .card{
-  background:linear-gradient(145deg,rgba(17,30,47,.98),rgba(10,19,31,.98));
-  border:1px solid var(--border);
+  background:#0c1929;
+  border:1px solid #1b314b;
   border-radius:20px;
-  padding:17px;
+  padding:16px;
   margin-bottom:14px;
-  box-shadow:0 10px 35px rgba(0,0,0,.22);
-  animation:appear .4s ease;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
 }
 
-.card-title{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:15px;
-  font-weight:700;
-  margin-bottom:14px;
+.card h2{
+  font-size:18px;
+  margin:0 0 14px;
 }
 
-.card-title .icon{
-  font-size:20px;
-}
-
-.route-grid{
+.grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
 }
 
-.route{
-  position:relative;
-}
-
-.route input{
-  position:absolute;
-  opacity:0;
-  pointer-events:none;
-}
-
-.route label{
-  display:block;
-  min-height:105px;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:15px;
-  background:#0a1320;
-  transition:.2s ease;
-}
-
-.route label:active{
-  transform:scale(.98);
-}
-
-.route input:checked + label{
-  border-color:var(--blue);
-  background:linear-gradient(145deg,rgba(45,140,255,.17),rgba(45,140,255,.05));
-  box-shadow:0 0 0 1px rgba(45,140,255,.2),0 8px 25px rgba(45,140,255,.08);
-}
-
-.route-icon{
-  font-size:27px;
-  margin-bottom:9px;
-}
-
-.route-name{
-  font-weight:700;
-  font-size:13px;
-}
-
-.route-desc{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:5px;
-  line-height:1.4;
-}
-
-.fields{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:11px;
-}
-
 .field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+  margin-bottom:10px;
 }
 
 .field.full{
   grid-column:1/-1;
 }
 
-label.field-label{
-  color:#aebdd0;
-  font-size:11px;
-  font-weight:600;
+label{
+  display:block;
+  color:#9fb0c5;
+  font-size:12px;
+  margin-bottom:6px;
 }
 
-.input-wrap{
-  position:relative;
-}
-
-.input-wrap span{
-  position:absolute;
-  left:12px;
-  top:50%;
-  transform:translateY(-50%);
-  color:#71859d;
-  font-size:11px;
-  pointer-events:none;
-}
-
-input[type="number"],
-input[type="text"]{
+input,select{
   width:100%;
-  height:46px;
-  border:1px solid #263950;
+  height:47px;
   border-radius:12px;
-  background:#07101c;
+  border:1px solid #28435f;
+  background:#071321;
   color:#fff;
-  outline:none;
   padding:0 12px;
-  transition:.2s;
+  font-size:16px;
+  outline:none;
 }
 
-.input-wrap input{
-  padding-left:43px;
+input:focus,select:focus{
+  border-color:#39a9ff;
+  box-shadow:0 0 0 2px rgba(57,169,255,.12);
 }
 
-input:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 3px rgba(45,140,255,.10);
+.route-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-input::placeholder{
-  color:#50647c;
+.route-btn{
+  border:1px solid #29445f;
+  background:#0a1625;
+  color:#b7c6d8;
+  border-radius:14px;
+  padding:14px 8px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.help{
-  color:#71839a;
-  font-size:9px;
-  line-height:1.4;
+.route-btn.active{
+  background:linear-gradient(135deg,#075fa8,#1687d4);
+  border-color:#36aaff;
+  color:white;
+}
+
+.btns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:8px;
+}
+
+button{
+  border:0;
+  border-radius:13px;
+  min-height:46px;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.primary{
+  background:linear-gradient(135deg,#0876c9,#18a1ed);
+  color:white;
+}
+
+.secondary{
+  background:#182a3f;
+  color:#dce8f5;
+  border:1px solid #2a435e;
+}
+
+.danger{
+  background:#431d27;
+  color:#ffb5c1;
+  border:1px solid #703341;
+}
+
+.result-main{
+  text-align:center;
+  background:linear-gradient(145deg,#102b42,#0b1929);
+  border-radius:18px;
+  padding:20px 12px;
+  border:1px solid #245174;
+  margin-bottom:12px;
+}
+
+.result-main .caption{
+  color:#9eb1c7;
+  font-size:12px;
+}
+
+.profit{
+  font-size:34px;
+  font-weight:900;
+  margin:5px 0;
+}
+
+.profit.negative{
+  color:#ff7184;
+}
+
+.profit.positive{
+  color:#50e39a;
+}
+
+.roi{
+  color:#8fcfff;
+  font-weight:bold;
+}
+
+.line{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid #192e44;
+  font-size:14px;
+}
+
+.line:last-child{
+  border-bottom:0;
+}
+
+.line span:first-child{
+  color:#9eafc3;
+}
+
+.line strong{
+  text-align:right;
+}
+
+.green{
+  color:#50e39a!important;
+}
+
+.red{
+  color:#ff7184!important;
+}
+
+.blue{
+  color:#5ebcff!important;
+}
+
+.gold{
+  color:#ffd166!important;
+}
+
+.flow{
+  display:grid;
+  gap:7px;
+}
+
+.flow-item{
+  background:#081522;
+  border:1px solid #1d344c;
+  border-radius:12px;
+  padding:10px;
+  font-size:13px;
+}
+
+.flow-arrow{
+  text-align:center;
+  color:#4a9ed1;
+  font-weight:bold;
+}
+
+.target-box{
+  background:linear-gradient(145deg,#19243a,#111a2b);
+  border:1px solid #354665;
+  border-radius:16px;
+  padding:14px;
+}
+
+.target-value{
+  font-size:27px;
+  font-weight:900;
+  margin:5px 0;
+}
+
+.progress{
+  height:10px;
+  background:#07111d;
+  border-radius:20px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#26a5ff,#4de39c);
+  transition:.3s;
+}
+
+.scenario{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.scenario-box{
+  background:#081522;
+  border:1px solid #1b344c;
+  border-radius:13px;
+  padding:12px;
+}
+
+.scenario-box small{
+  display:block;
+  color:#8fa4ba;
+  margin-bottom:5px;
+}
+
+.scenario-box strong{
+  font-size:16px;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  border-radius:12px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:570px;
+  font-size:12px;
+}
+
+th,td{
+  padding:9px 7px;
+  border-bottom:1px solid #1c3046;
+  text-align:right;
+}
+
+th{
+  color:#7fa1c1;
+  background:#091625;
+}
+
+td:first-child,th:first-child{
+  text-align:left;
+}
+
+.history-item{
+  background:#081522;
+  border:1px solid #1c344b;
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:9px;
+}
+
+.history-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:7px;
+}
+
+.badge{
+  padding:5px 8px;
+  border-radius:8px;
+  background:#14304a;
+  color:#8ed0ff;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.mini{
+  font-size:12px;
+  color:#91a6ba;
 }
 
 .hidden{
   display:none!important;
 }
 
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:14px;
-}
-
-.btn{
-  min-height:46px;
-  border:none;
-  border-radius:13px;
-  padding:10px 14px;
-  font-weight:700;
-  color:white;
-  transition:.2s;
-}
-
-.btn:active{
-  transform:scale(.97);
-}
-
-.btn-primary{
-  background:linear-gradient(135deg,#1478ed,#2faeff);
-  box-shadow:0 8px 25px rgba(45,140,255,.18);
-}
-
-.btn-secondary{
-  background:#17263a;
-  border:1px solid #29405a;
-}
-
-.btn-danger{
-  background:rgba(255,83,100,.10);
-  color:#ff7c88;
-  border:1px solid rgba(255,83,100,.25);
-}
-
-.error{
-  margin-top:10px;
-  padding:11px 13px;
-  border-radius:11px;
-  background:rgba(255,83,100,.09);
-  border:1px solid rgba(255,83,100,.22);
-  color:#ff8792;
-  font-size:11px;
+.notice{
+  background:#102238;
+  border:1px solid #234969;
+  color:#a9c8e4;
+  padding:11px;
+  border-radius:12px;
+  font-size:12px;
   line-height:1.45;
+  margin-bottom:10px;
 }
 
-.flow{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:7px;
-  align-items:stretch;
-}
-
-.flow-item{
-  background:#091321;
-  border:1px solid #1e3045;
-  border-radius:13px;
-  padding:11px 7px;
+.empty{
   text-align:center;
-  min-width:0;
+  color:#71869d;
+  padding:18px 5px;
+  font-size:13px;
 }
 
-.flow-icon{
-  font-size:20px;
-  margin-bottom:5px;
-}
-
-.flow-label{
-  color:#8295ab;
-  font-size:8px;
-  line-height:1.3;
-}
-
-.flow-value{
-  margin-top:5px;
-  font-size:11px;
-  font-weight:700;
-  word-break:break-word;
-}
-
-.flow-arrow{
-  display:none;
-}
-
-.result-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-}
-
-.result{
-  background:#091321;
-  border:1px solid #1e3045;
-  border-radius:14px;
-  padding:12px;
-}
-
-.result.highlight{
-  border-color:rgba(45,140,255,.38);
-  background:linear-gradient(145deg,rgba(45,140,255,.12),#091321);
-}
-
-.result-label{
-  color:#8093aa;
-  font-size:9px;
-  margin-bottom:6px;
-}
-
-.result-value{
-  font-size:15px;
-  font-weight:800;
-  word-break:break-word;
-}
-
-.result-value.green{
-  color:var(--green);
-}
-
-.result-value.red{
-  color:var(--red);
-}
-
-.result-value.yellow{
-  color:var(--yellow);
-}
-
-.formula{
-  margin-top:12px;
-  background:#07101b;
-  border-left:3px solid var(--blue);
-  border-radius:8px;
-  padding:10px 12px;
-  color:#9dafc3;
-  font-size:10px;
-  line-height:1.55;
-}
-
-.formula strong{
-  color:#dce8f5;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:6px 9px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:700;
-}
-
-.badge.green{
-  color:var(--green);
-  background:rgba(34,201,129,.09);
-  border:1px solid rgba(34,201,129,.2);
-}
-
-.badge.red{
-  color:var(--red);
-  background:rgba(255,83,100,.09);
-  border:1px solid rgba(255,83,100,.2);
-}
-
-.badge.yellow{
-  color:var(--yellow);
-  background:rgba(255,200,87,.08);
-  border:1px solid rgba(255,200,87,.2);
-}
-
-.status-box{
-  text-align:center;
-  padding:13px;
-  margin-top:12px;
-  border-radius:14px;
-  background:#091321;
-  border:1px solid #1e3045;
-}
-
-.status-box .big{
-  font-size:16px;
-  font-weight:800;
-}
-
-.status-box .small{
-  color:#7f92a8;
-  font-size:10px;
-  margin-top:5px;
-}
-
-@keyframes appear{
-  from{
-    opacity:0;
-    transform:translateY(7px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-@media(max-width:700px){
-  .app{
-    padding:10px;
-  }
-
-  .header{
-    padding:15px;
-    border-radius:19px;
-  }
-
-  .header-top{
-    align-items:flex-start;
-  }
-
-  .status{
-    font-size:9px;
-    padding:7px 8px;
-  }
-
-  h1{
-    font-size:18px;
-  }
-
-  .route-grid,
-  .fields{
+@media(max-width:480px){
+  .grid{
     grid-template-columns:1fr;
   }
 
@@ -498,26 +385,16 @@ input::placeholder{
     grid-column:auto;
   }
 
-  .flow{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .flow-item:last-child{
-    grid-column:1/-1;
-  }
-
-  .result-grid{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
-@media(max-width:390px){
-  .result-grid{
+  .scenario{
     grid-template-columns:1fr;
   }
 
-  .actions{
-    grid-template-columns:1fr;
+  .container{
+    padding:10px 9px 30px;
+  }
+
+  .card{
+    padding:14px;
   }
 }
 </style>
@@ -525,558 +402,297 @@ input::placeholder{
 
 <body>
 
-<div class="app">
+<div class="container">
 
-  <header class="header">
-    <div class="header-top">
-      <div class="logo">
-        <div class="logo-icon">₮</div>
-        <div>
-          <h1>Calculadora USDT</h1>
-          <div class="subtitle">Análisis completo de operaciones CUP → USD → USDT</div>
-        </div>
+  <div class="header">
+    <h1>💰 Calculadora USDT • CUP</h1>
+    <p>Calcula inversión, conversión, venta, ganancias, ROI, metas y escenarios.</p>
+  </div>
+
+  <!-- RUTA -->
+  <div class="card">
+    <h2>🔀 Tipo de operación</h2>
+
+    <div class="route-buttons">
+      <button id="btnBank" class="route-btn active" onclick="setRoute('bank')">
+        🏦 BANCO
+      </button>
+
+      <button id="btnTransfer" class="route-btn" onclick="setRoute('transfer')">
+        💸 TRANSFERENCIA
+      </button>
+    </div>
+  </div>
+
+  <!-- DATOS PRINCIPALES -->
+  <div class="card">
+    <h2>⚙️ Parámetros de la operación</h2>
+
+    <div id="bankFields">
+
+      <div class="notice">
+        En esta ruta el descuento bancario se aplica al monto retirado del banco.
+        El cálculo determina cuánto debes sacar para obtener el efectivo deseado.
       </div>
 
-      <div class="status">● OPERACIÓN ACTIVA</div>
-    </div>
-  </header>
+      <div class="grid">
 
-  <section class="card">
-    <div class="card-title">
-      <span class="icon">🔀</span>
-      <span>SELECCIONA LA VÍA</span>
-    </div>
-
-    <div class="route-grid">
-
-      <div class="route">
-        <input type="radio" name="route" id="routeBank" value="bank">
-        <label for="routeBank">
-          <div class="route-icon">🏦</div>
-          <div class="route-name">OPERACIÓN MEDIANTE BANCO</div>
-          <div class="route-desc">
-            CUP bancarios → efectivo → USD → Cell → USDT → CUP
-          </div>
-        </label>
-      </div>
-
-      <div class="route">
-        <input type="radio" name="route" id="routeTransfer" value="transfer" checked>
-        <label for="routeTransfer">
-          <div class="route-icon">💸</div>
-          <div class="route-name">COMPRA USD POR TRANSFERENCIA</div>
-          <div class="route-desc">
-            CUP → USD por transferencia → Cell → USDT → CUP
-          </div>
-        </label>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="card" id="inputsCard">
-
-    <div class="card-title">
-      <span class="icon">⚙️</span>
-      <span>DATOS DE LA OPERACIÓN</span>
-    </div>
-
-    <!-- BANCO -->
-    <div id="bankFields" class="hidden">
-
-      <div class="fields">
-
-        <div class="field full">
-          <label class="field-label">CUP NETO QUE DESEO RECIBIR EN EFECTIVO</label>
-          <div class="input-wrap">
-            <span>CUP</span>
-            <input id="bankNet" type="number" min="0" step="0.01" value="100000">
-          </div>
-          <div class="help">
-            Cantidad de CUP que quieres recibir después del descuento bancario.
-          </div>
+        <div class="field">
+          <label>CUP NETO QUE QUIERES RECIBIR EN EFECTIVO</label>
+          <input id="bankNet" type="number" min="0" step="0.01" value="100000">
         </div>
 
         <div class="field">
-          <label class="field-label">DESCUENTO DEL BANCO</label>
-          <div class="input-wrap">
-            <span>%</span>
-            <input id="bankDiscount" type="number" min="0" step="0.01" value="13">
-          </div>
-          <div class="help">
-            Porcentaje descontado por el banco.
-          </div>
+          <label>DESCUENTO DEL BANCO (%)</label>
+          <input id="bankDiscount" type="number" min="0" max="99.99" step="0.01" value="13">
         </div>
 
         <div class="field">
-          <label class="field-label">PRECIO USD EN EFECTIVO</label>
-          <div class="input-wrap">
-            <span>₲</span>
-            <input id="cashUsdPrice" type="number" min="0" step="0.01" value="690">
-          </div>
-          <div class="help">
-            CUP necesarios para comprar 1 USD en efectivo.
-          </div>
+          <label>USD EN EFECTIVO — CUP/USD</label>
+          <input id="cashUsdRate" type="number" min="0.01" step="0.01" value="690">
         </div>
 
       </div>
 
     </div>
 
-    <!-- TRANSFERENCIA -->
-    <div id="transferFields">
+    <div id="transferFields" class="hidden">
 
-      <div class="fields">
+      <div class="grid">
 
         <div class="field">
-          <label class="field-label">CANTIDAD DE USD</label>
-          <div class="input-wrap">
-            <span>$</span>
-            <input id="usdAmount" type="number" min="0" step="0.01" value="100">
-          </div>
+          <label>USD RECIBIDOS</label>
+          <input id="transferUsd" type="number" min="0.01" step="0.01" value="100">
         </div>
 
         <div class="field">
-          <label class="field-label">PRECIO USD POR TRANSFERENCIA</label>
-          <div class="input-wrap">
-            <span>₲</span>
-            <input id="transferUsdPrice" type="number" min="0" step="0.01" value="860">
-          </div>
-          <div class="help">
-            CUP que pagas por cada USD comprado.
-          </div>
+          <label>PRECIO USD TRANSFERENCIA — CUP/USD</label>
+          <input id="transferRate" type="number" min="0.01" step="0.01" value="860">
         </div>
 
       </div>
 
     </div>
 
-    <div class="fields" style="margin-top:11px">
+    <div class="grid">
 
       <div class="field">
-        <label class="field-label">TASA CELL</label>
-        <div class="input-wrap">
-          <span>×</span>
-          <input id="cellRate" type="number" min="0" step="0.01" value="1.04">
-        </div>
-        <div class="help">
-          Ejemplo: 1.04 significa que 1 USD enviado genera 1/1.04 USDT.
-        </div>
+        <label>CONVERSIÓN CELL — USD POR 1 USDT</label>
+        <input id="cellRate" type="number" min="0.000001" step="0.000001" value="1.04">
       </div>
 
       <div class="field">
-        <label class="field-label">PRECIO DE VENTA USDT</label>
-        <div class="input-wrap">
-          <span>₲</span>
-          <input id="usdtPrice" type="number" min="0" step="0.01" value="930">
-        </div>
-        <div class="help">
-          CUP que recibes por cada USDT vendido.
-        </div>
+        <label>VENTA USDT — CUP/USDT</label>
+        <input id="usdtSell" type="number" min="0.01" step="0.01" value="930">
       </div>
 
       <div class="field full">
-        <label class="field-label">OTROS GASTOS</label>
-        <div class="input-wrap">
-          <span>₲</span>
-          <input id="expenses" type="number" min="0" step="0.01" value="0">
-        </div>
-        <div class="help">
-          Comisiones u otros gastos adicionales de la operación.
-        </div>
+        <label>OTROS GASTOS — CUP</label>
+        <input id="expenses" type="number" min="0" step="0.01" value="0">
       </div>
 
     </div>
 
-    <div id="errorBox" class="error hidden"></div>
+    <div class="btns">
+      <button class="primary" onclick="calculate()">🧮 CALCULAR</button>
+      <button class="secondary" onclick="resetCalculator()">🔄 RESTABLECER</button>
+    </div>
+  </div>
 
-    <div class="actions">
-      <button class="btn btn-primary" id="calculateBtn">
-        🧮 CALCULAR OPERACIÓN
-      </button>
+  <!-- RESULTADO -->
+  <div class="card">
+    <h2>📊 Resultado</h2>
 
-      <button class="btn btn-secondary" id="resetBtn">
-        🧹 RESTABLECER VALORES
-      </button>
+    <div class="result-main">
+      <div class="caption">GANANCIA NETA</div>
+      <div id="profit" class="profit positive">0.00 CUP</div>
+      <div id="roi" class="roi">ROI: 0.00%</div>
     </div>
 
-  </section>
+    <div id="resultLines"></div>
+  </div>
 
-  <section class="card">
+  <!-- FLUJO -->
+  <div class="card">
+    <h2>🔄 Flujo de la operación</h2>
+    <div id="flow" class="flow"></div>
+  </div>
 
-    <div class="card-title">
-      <span class="icon">🔄</span>
-      <span>FLUJO DE LA OPERACIÓN</span>
+  <!-- PUNTO EQUILIBRIO -->
+  <div class="card">
+    <h2>⚖️ Punto de equilibrio</h2>
+
+    <div class="line">
+      <span>Precio USDT para quedar en $0</span>
+      <strong id="breakEven">0.00 CUP</strong>
     </div>
 
-    <div class="flow">
-
-      <div class="flow-item">
-        <div class="flow-icon">💰</div>
-        <div class="flow-label">CAPITAL INICIAL</div>
-        <div class="flow-value" id="flowInvestment">—</div>
-      </div>
-
-      <div class="flow-item">
-        <div class="flow-icon">💵</div>
-        <div class="flow-label">USD</div>
-        <div class="flow-value" id="flowUsd">—</div>
-      </div>
-
-      <div class="flow-item">
-        <div class="flow-icon">📲</div>
-        <div class="flow-label">TASA CELL</div>
-        <div class="flow-value" id="flowCell">—</div>
-      </div>
-
-      <div class="flow-item">
-        <div class="flow-icon">₮</div>
-        <div class="flow-label">USDT</div>
-        <div class="flow-value" id="flowUsdt">—</div>
-      </div>
-
-      <div class="flow-item">
-        <div class="flow-icon">💱</div>
-        <div class="flow-label">VENTA</div>
-        <div class="flow-value" id="flowSale">—</div>
-      </div>
-
-      <div class="flow-item">
-        <div class="flow-icon">🏁</div>
-        <div class="flow-label">RESULTADO FINAL</div>
-        <div class="flow-value" id="flowFinal">—</div>
-      </div>
-
-      <div class="flow-item">
-        <div class="flow-icon">📈</div>
-        <div class="flow-label">GANANCIA</div>
-        <div class="flow-value" id="flowProfit">—</div>
-      </div>
-
+    <div class="line">
+      <span>Precio USDT para alcanzar meta</span>
+      <strong id="targetSellPrice" class="gold">0.00 CUP</strong>
     </div>
+  </div>
 
-  </section>
+  <!-- META SEMANAL -->
+  <div class="card">
+    <h2>🎯 Meta semanal</h2>
 
-  <section class="card">
-
-    <div class="card-title">
-      <span class="icon">📊</span>
-      <span>DESGLOSE PASO A PASO</span>
-    </div>
-
-    <div id="breakdown"></div>
-
-  </section>
-  <section class="card">
-
-    <div class="card-title">
-      <span class="icon">📋</span>
-      <span>RESUMEN DE OPERACIÓN</span>
-    </div>
-
-    <div class="result-grid">
-
-      <div class="result">
-        <div class="result-label">VÍA UTILIZADA</div>
-        <div class="result-value" id="summaryRoute">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">INVERSIÓN INICIAL</div>
-        <div class="result-value" id="summaryInvestment">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">USD</div>
-        <div class="result-value" id="summaryUsd">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">TASA CELL</div>
-        <div class="result-value" id="summaryCell">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">USDT OBTENIDOS</div>
-        <div class="result-value" id="summaryUsdt">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">PRECIO VENTA USDT</div>
-        <div class="result-value" id="summaryUsdtPrice">—</div>
-      </div>
-
-      <div class="result highlight">
-        <div class="result-label">RESULTADO FINAL</div>
-        <div class="result-value" id="summaryFinal">—</div>
-      </div>
-
-      <div class="result highlight">
-        <div class="result-label">GANANCIA NETA</div>
-        <div class="result-value" id="summaryProfit">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">ROI</div>
-        <div class="result-value" id="summaryRoi">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">PUNTO DE EQUILIBRIO</div>
-        <div class="result-value" id="summaryBreakEven">—</div>
-      </div>
-
-    </div>
-
-    <div class="status-box" id="operationStatus">
-      <div class="big">—</div>
-      <div class="small">Realiza el cálculo para conocer el resultado.</div>
-    </div>
-
-  </section>
-
-  <section class="card">
-
-    <div class="card-title">
-      <span class="icon">⚖️</span>
-      <span>PUNTO DE EQUILIBRIO</span>
-    </div>
-
-    <div class="result-grid">
-
-      <div class="result">
-        <div class="result-label">PRECIO ACTUAL USDT</div>
-        <div class="result-value" id="beCurrent">—</div>
-      </div>
-
-      <div class="result highlight">
-        <div class="result-label">PRECIO DE EQUILIBRIO</div>
-        <div class="result-value yellow" id="bePrice">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">MARGEN POR USDT</div>
-        <div class="result-value" id="beMargin">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">COSTO TOTAL</div>
-        <div class="result-value" id="beTotalCost">—</div>
-      </div>
-
-    </div>
-
-    <div class="formula">
-      <strong>Fórmula:</strong>
-      precio de equilibrio = (inversión + gastos) ÷ USDT obtenidos.
-      <br><br>
-      Si vendes por debajo de ese precio → pérdida.
-      <br>
-      Si vendes exactamente a ese precio → recuperas el costo.
-      <br>
-      Si vendes por encima → obtienes ganancia.
-    </div>
-
-  </section>
-
-  <section class="card">
-
-    <div class="card-title">
-      <span class="icon">📊</span>
-      <span>ESCENARIOS</span>
-    </div>
-
-    <div class="fields">
+    <div class="grid">
 
       <div class="field">
-        <label class="field-label">ESCENARIO 1 — USDT</label>
-        <input id="scenario1" type="number" min="0" step="0.01" value="850">
+        <label>CAPITAL POR PERSONA — USD</label>
+        <input id="weeklyUsd" type="number" min="0.01" step="0.01" value="100">
       </div>
 
       <div class="field">
-        <label class="field-label">ESCENARIO 2 — USDT</label>
-        <input id="scenario2" type="number" min="0" step="0.01" value="900">
+        <label>META DE GANANCIA — CUP/SEMANA</label>
+        <input id="weeklyTarget" type="number" min="0" step="0.01" value="5000">
       </div>
 
+    </div>
+
+    <div class="target-box">
+
+      <div class="mini">Ganancia estimada por ciclo</div>
+      <div id="weeklyPerCycle" class="target-value green">0.00 CUP</div>
+
+      <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div class="line">
+        <span>Ganancia que falta</span>
+        <strong id="weeklyMissing">0.00 CUP</strong>
+      </div>
+
+      <div class="line">
+        <span>Ciclos necesarios</span>
+        <strong id="weeklyCycles">0</strong>
+      </div>
+
+      <div class="line">
+        <span>Ganancia con esos ciclos</span>
+        <strong id="weeklyTotal" class="green">0.00 CUP</strong>
+      </div>
+
+      <div class="line">
+        <span>Meta alcanzada en un solo ciclo</span>
+        <strong id="oneCycleTarget" class="gold">NO</strong>
+      </div>
+
+    </div>
+
+    <div class="notice" style="margin-top:10px;margin-bottom:0">
+      La meta es una estimación basada en los precios introducidos. No representa una
+      ganancia garantizada; los precios de compra, Cell, venta y gastos pueden cambiar.
+    </div>
+  </div>
+
+  <!-- ESCENARIOS -->
+  <div class="card">
+    <h2>📈 Escenarios de venta USDT</h2>
+
+    <div class="grid">
+      <div class="field full">
+        <label>PRECIOS A COMPARAR — separados por coma</label>
+        <input id="scenarioPrices" type="text" value="850,900,930,950,1000,1050">
+      </div>
+    </div>
+
+    <div id="scenarios" class="scenario"></div>
+  </div>
+
+  <!-- COMPARADOR -->
+  <div class="card">
+    <h2>⚔️ Comparar BANCO vs TRANSFERENCIA</h2>
+
+    <div class="notice">
+      Se utiliza la misma cantidad de USD, la misma tasa Cell y el mismo precio de
+      venta para comparar las dos rutas.
+    </div>
+
+    <div class="grid">
       <div class="field">
-        <label class="field-label">ESCENARIO 3 — USDT</label>
-        <input id="scenario3" type="number" min="0" step="0.01" value="930">
+        <label>USD PARA COMPARAR</label>
+        <input id="compareUsd" type="number" min="0.01" step="0.01" value="100">
       </div>
-
-      <div class="field">
-        <label class="field-label">ESCENARIO 4 — USDT</label>
-        <input id="scenario4" type="number" min="0" step="0.01" value="950">
-      </div>
-
-      <div class="field">
-        <label class="field-label">ESCENARIO 5 — USDT</label>
-        <input id="scenario5" type="number" min="0" step="0.01" value="1000">
-      </div>
-
-      <div class="field">
-        <label class="field-label">ESCENARIO 6 — USDT</label>
-        <input id="scenario6" type="number" min="0" step="0.01" value="1050">
-      </div>
-
     </div>
 
-    <div id="scenarios" style="margin-top:13px"></div>
+    <div id="comparison"></div>
+  </div>
 
-  </section>
+  <!-- GUARDAR -->
+  <div class="card">
+    <h2>💾 Guardar operación</h2>
 
-  <section class="card">
-
-    <div class="card-title">
-      <span class="icon">⚖️</span>
-      <span>COMPARAR VÍAS</span>
+    <div class="notice">
+      Guarda el resultado actual para consultarlo posteriormente.
     </div>
 
-    <div class="formula">
-      La comparación utiliza <strong>la misma cantidad de USD</strong>,
-      la misma tasa Cell y el mismo precio de venta USDT para que puedas
-      observar qué vía requiere menos capital y cuál produce mayor beneficio.
+    <div class="btns">
+      <button class="primary" onclick="saveOperation()">💾 GUARDAR</button>
+      <button class="danger" onclick="clearHistory()">🗑️ BORRAR HISTORIAL</button>
     </div>
+  </div>
 
-    <div class="result-grid" style="margin-top:12px">
-
-      <div class="result">
-        <div class="result-label">USD COMPARADOS</div>
-        <div class="result-value" id="compareUsd">—</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">USDT COMPARADOS</div>
-        <div class="result-value" id="compareUsdt">—</div>
-      </div>
-
-    </div>
-
-    <div id="compareBox" style="margin-top:12px"></div>
-
-  </section>
-
-  <section class="card">
-
-    <div class="card-title">
-      <span class="icon">💾</span>
-      <span>HISTORIAL</span>
-    </div>
-
-    <div class="actions">
-
-      <button class="btn btn-primary" id="saveBtn">
-        💾 GUARDAR OPERACIÓN
-      </button>
-
-      <button class="btn btn-danger" id="deleteHistoryBtn">
-        🗑️ ELIMINAR HISTORIAL
-      </button>
-
-    </div>
-
-    <div id="history" style="margin-top:13px"></div>
-
-  </section>
-
-  <section class="card">
-
-    <div class="actions">
-
-      <button class="btn btn-secondary" id="newOperationBtn">
-        🔄 NUEVA OPERACIÓN
-      </button>
-
-    </div>
-
-  </section>
+  <!-- HISTORIAL -->
+  <div class="card">
+    <h2>🧾 Historial</h2>
+    <div id="history"></div>
+  </div>
 
 </div>
 
 <script>
+"use strict";
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let route = "bank";
+let lastCalculation = null;
+
 const $ = id => document.getElementById(id);
 
-const STORAGE_KEY = "calculadora_usdt_operacion_v1";
-const HISTORY_KEY = "calculadora_usdt_historial_v1";
+/* =========================================================
+   FORMATO
+========================================================= */
 
-const defaults = {
-  route: "transfer",
-  bankNet: 100000,
-  bankDiscount: 13,
-  cashUsdPrice: 690,
-  usdAmount: 100,
-  transferUsdPrice: 860,
-  cellRate: 1.04,
-  usdtPrice: 930,
-  expenses: 0,
-  scenario1: 850,
-  scenario2: 900,
-  scenario3: 930,
-  scenario4: 950,
-  scenario5: 1000,
-  scenario6: 1050
-};
-
-let currentResult = null;
-
-function number(id){
-  return parseFloat($(id).value);
+function num(value){
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
 }
 
 function money(value){
-  if(!Number.isFinite(value)) return "—";
-
-  return new Intl.NumberFormat("en-US",{
+  return num(value).toLocaleString("es-ES",{
     minimumFractionDigits:2,
     maximumFractionDigits:2
-  }).format(value);
+  }) + " CUP";
 }
 
 function usd(value){
-  if(!Number.isFinite(value)) return "—";
-
-  return "$ " + new Intl.NumberFormat("en-US",{
+  return "$" + num(value).toLocaleString("en-US",{
     minimumFractionDigits:2,
     maximumFractionDigits:2
-  }).format(value);
-}
-
-function cup(value){
-  if(!Number.isFinite(value)) return "—";
-
-  return new Intl.NumberFormat("en-US",{
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
-  }).format(value) + " CUP";
+  });
 }
 
 function usdt(value){
-  if(!Number.isFinite(value)) return "—";
-
-  return new Intl.NumberFormat("en-US",{
+  return num(value).toLocaleString("en-US",{
     minimumFractionDigits:2,
     maximumFractionDigits:6
-  }).format(value) + " USDT";
+  }) + " USDT";
 }
 
-function percent(value){
-  if(!Number.isFinite(value)) return "—";
-
-  return new Intl.NumberFormat("en-US",{
+function pct(value){
+  return num(value).toLocaleString("es-ES",{
     minimumFractionDigits:2,
     maximumFractionDigits:2
-  }).format(value) + "%";
+  }) + "%";
 }
 
-function rate(value){
-  if(!Number.isFinite(value)) return "—";
-
-  return "× " + new Intl.NumberFormat("en-US",{
-    minimumFractionDigits:2,
-    maximumFractionDigits:4
-  }).format(value);
-}
-
-function escapeHtml(text){
+function escapeHTML(text){
   return String(text)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
@@ -1085,1180 +701,338 @@ function escapeHtml(text){
     .replaceAll("'","&#039;");
 }
 
-function showError(message){
-  $("errorBox").textContent = message;
-  $("errorBox").classList.remove("hidden");
+/* =========================================================
+   RUTA
+========================================================= */
+
+function setRoute(newRoute){
+
+  route = newRoute;
+
+  $("btnBank").classList.toggle("active",route === "bank");
+  $("btnTransfer").classList.toggle("active",route === "transfer");
+
+  $("bankFields").classList.toggle("hidden",route !== "bank");
+  $("transferFields").classList.toggle("hidden",route !== "transfer");
+
+  calculate();
 }
 
-function clearError(){
-  $("errorBox").textContent = "";
-  $("errorBox").classList.add("hidden");
-}
+/* =========================================================
+   LECTURA DE DATOS
+========================================================= */
 
-function getRoute(){
-  return document.querySelector('input[name="route"]:checked')?.value || "transfer";
-}
+function readData(){
 
-function updateRoute(){
-  const route = getRoute();
-
-  if(route === "bank"){
-    $("bankFields").classList.remove("hidden");
-    $("transferFields").classList.add("hidden");
-  }else{
-    $("bankFields").classList.add("hidden");
-    $("transferFields").classList.remove("hidden");
-  }
-
-  calculate(false);
-}
-
-function validate(){
-
-  const route = getRoute();
-
-  if(route === "bank"){
-
-    const net = number("bankNet");
-    const discount = number("bankDiscount");
-    const cashPrice = number("cashUsdPrice");
-
-    if(!Number.isFinite(net) || net <= 0){
-      return "Introduce una cantidad válida de CUP netos que deseas recibir.";
-    }
-
-    if(!Number.isFinite(discount) || discount < 0 || discount >= 100){
-      return "El descuento bancario debe ser igual o mayor que 0% y menor que 100%.";
-    }
-
-    if(!Number.isFinite(cashPrice) || cashPrice <= 0){
-      return "El precio del USD en efectivo debe ser mayor que 0.";
-    }
-
-  }else{
-
-    const usdAmount = number("usdAmount");
-    const transferPrice = number("transferUsdPrice");
-
-    if(!Number.isFinite(usdAmount) || usdAmount <= 0){
-      return "Introduce una cantidad de USD válida.";
-    }
-
-    if(!Number.isFinite(transferPrice) || transferPrice <= 0){
-      return "El precio del USD por transferencia debe ser mayor que 0.";
-    }
-  }
-
-  const cell = number("cellRate");
-  const sale = number("usdtPrice");
-  const expenses = number("expenses");
-
-  if(!Number.isFinite(cell) || cell <= 0){
-    return "La tasa Cell debe ser mayor que 0.";
-  }
-
-  if(!Number.isFinite(sale) || sale <= 0){
-    return "El precio de venta del USDT debe ser mayor que 0.";
-  }
-
-  if(!Number.isFinite(expenses) || expenses < 0){
-    return "Los otros gastos no pueden ser negativos.";
-  }
-
-  return null;
-}
-
-function calculate(showMessage = true){
-
-  clearError();
-
-  const validation = validate();
-
-  if(validation){
-
-    if(showMessage){
-      showError(validation);
-    }
-
-    return null;
-  }
-
-  const route = getRoute();
-
-  const cellRate = number("cellRate");
-  const usdtSalePrice = number("usdtPrice");
-  const expenses = number("expenses");
+  const cell = num($("cellRate").value);
+  const sell = num($("usdtSell").value);
+  const expenses = num($("expenses").value);
 
   let investment = 0;
   let usdAmount = 0;
-  let bankDiscountAmount = 0;
   let bankGross = 0;
-  let cashReceived = 0;
+  let bankDiscountAmount = 0;
+  let bankNet = 0;
+  let usdRate = 0;
 
   if(route === "bank"){
 
-    const desiredNet = number("bankNet");
-    const discountRate = number("bankDiscount") / 100;
-    const cashUsdPrice = number("cashUsdPrice");
+    bankNet = num($("bankNet").value);
+    const discount = num($("bankDiscount").value);
 
-    /*
-      Si el usuario desea recibir X CUP netos:
-      bruto = neto / (1 - descuento)
-    */
+    if(discount >= 100){
+      throw new Error("El descuento bancario debe ser menor que 100%.");
+    }
 
-    bankGross = desiredNet / (1 - discountRate);
+    if(bankNet <= 0){
+      throw new Error("Introduce un CUP neto válido.");
+    }
 
-    bankDiscountAmount = bankGross * discountRate;
+    usdRate = num($("cashUsdRate").value);
 
-    cashReceived = bankGross - bankDiscountAmount;
+    if(usdRate <= 0){
+      throw new Error("Introduce un precio válido para el USD en efectivo.");
+    }
 
-    usdAmount = cashReceived / cashUsdPrice;
-
+    bankGross = bankNet / (1 - discount / 100);
+    bankDiscountAmount = bankGross - bankNet;
     investment = bankGross;
 
-  }else{
-
-    usdAmount = number("usdAmount");
-
-    const transferPrice = number("transferUsdPrice");
-
-    investment = usdAmount * transferPrice;
-
-    cashReceived = 0;
-    bankGross = 0;
-    bankDiscountAmount = 0;
+    usdAmount = bankNet / usdRate;
   }
 
-  const usdtObtained = usdAmount / cellRate;
+  else{
 
-  const grossFinal = usdtObtained * usdtSalePrice;
+    usdAmount = num($("transferUsd").value);
+    usdRate = num($("transferRate").value);
+
+    if(usdAmount <= 0){
+      throw new Error("Introduce una cantidad válida de USD.");
+    }
+
+    if(usdRate <= 0){
+      throw new Error("Introduce un precio válido para el USD por transferencia.");
+    }
+
+    investment = usdAmount * usdRate;
+  }
+
+  if(cell <= 0){
+    throw new Error("La tasa Cell debe ser mayor que 0.");
+  }
+
+  if(sell <= 0){
+    throw new Error("El precio de venta del USDT debe ser mayor que 0.");
+  }
+
+  if(expenses < 0){
+    throw new Error("Los gastos no pueden ser negativos.");
+  }
+
+  const usdtAmount = usdAmount / cell;
+  const finalCup = usdtAmount * sell;
+  const profit = finalCup - investment - expenses;
+
+  const roi = investment > 0
+    ? (profit / investment) * 100
+    : 0;
 
   const totalCost = investment + expenses;
 
-  const netProfit = grossFinal - totalCost;
-
-  const roi = investment > 0
-    ? (netProfit / investment) * 100
+  const breakEven = usdtAmount > 0
+    ? totalCost / usdtAmount
     : 0;
 
-  const breakEven = usdtObtained > 0
-    ? totalCost / usdtObtained
-    : 0;
+  const weeklyUsd = num($("weeklyUsd").value);
+  const weeklyTarget = num($("weeklyTarget").value);
 
-  const marginPerUsdt = usdtSalePrice - breakEven;
+  const weeklyInvestment = weeklyUsd * usdRate;
+  const weeklyUsdt = weeklyUsd / cell;
+  const weeklyFinal = weeklyUsdt * sell;
 
-  let status;
+  let weeklyProfit;
 
-  if(netProfit > 0.0000001){
-    status = "profit";
-  }else if(netProfit < -0.0000001){
-    status = "loss";
+  if(route === "bank"){
+
+    const discount = num($("bankDiscount").value);
+
+    const netNeeded = weeklyUsd * usdRate;
+
+    const grossNeeded = discount < 100
+      ? netNeeded / (1 - discount / 100)
+      : 0;
+
+    weeklyProfit =
+      weeklyFinal -
+      grossNeeded -
+      expenses;
+
   }else{
-    status = "even";
+
+    weeklyProfit =
+      weeklyFinal -
+      weeklyInvestment -
+      expenses;
   }
 
-  currentResult = {
+  return {
     route,
+    cell,
+    sell,
+    expenses,
     investment,
     usdAmount,
-    cellRate,
-    usdtObtained,
-    usdtSalePrice,
-    grossFinal,
-    expenses,
-    totalCost,
-    netProfit,
-    roi,
-    breakEven,
-    marginPerUsdt,
+    usdRate,
     bankGross,
     bankDiscountAmount,
-    cashReceived,
-    timestamp: Date.now()
+    bankNet,
+    usdtAmount,
+    finalCup,
+    profit,
+    roi,
+    breakEven,
+    weeklyUsd,
+    weeklyTarget,
+    weeklyProfit
   };
-
-  renderResult(currentResult);
-
-  saveCurrentValues();
-
-  return currentResult;
 }
 
-function renderResult(r){
+/* =========================================================
+   CALCULAR
+========================================================= */
 
-  $("flowInvestment").textContent = cup(r.investment);
-  $("flowUsd").textContent = usd(r.usdAmount);
-  $("flowCell").textContent = rate(r.cellRate);
-  $("flowUsdt").textContent = usdt(r.usdtObtained);
-  $("flowSale").textContent = cup(r.usdtSalePrice);
-  $("flowFinal").textContent = cup(r.grossFinal);
-  $("flowProfit").textContent = cup(r.netProfit);
+function calculate(){
 
-  $("flowProfit").className =
-    "flow-value " + (r.netProfit >= 0 ? "green" : "red");
+  try{
 
-  $("summaryRoute").textContent =
-    r.route === "bank"
-      ? "🏦 Banco"
-      : "💸 Transferencia";
+    const d = readData();
 
-  $("summaryInvestment").textContent = cup(r.investment);
-  $("summaryUsd").textContent = usd(r.usdAmount);
-  $("summaryCell").textContent = rate(r.cellRate);
-  $("summaryUsdt").textContent = usdt(r.usdtObtained);
-  $("summaryUsdtPrice").textContent = cup(r.usdtSalePrice);
-  $("summaryFinal").textContent = cup(r.grossFinal);
+    lastCalculation = d;
 
-  $("summaryProfit").textContent = cup(r.netProfit);
-  $("summaryProfit").className =
-    "result-value " + (r.netProfit >= 0 ? "green" : "red");
+    renderResult(d);
+    renderFlow(d);
+    renderWeekly(d);
+    renderScenarios(d);
+    renderComparison(d);
 
-  $("summaryRoi").textContent = percent(r.roi);
+    saveSettings();
 
-  $("summaryRoi").className =
-    "result-value " + (r.roi >= 0 ? "green" : "red");
+  }catch(error){
 
-  $("summaryBreakEven").textContent = cup(r.breakEven);
+    $("profit").textContent = "ERROR";
+    $("profit").className = "profit negative";
 
-  $("beCurrent").textContent = cup(r.usdtSalePrice);
-  $("bePrice").textContent = cup(r.breakEven);
-  $("beMargin").textContent = cup(r.marginPerUsdt);
-  $("beTotalCost").textContent = cup(r.totalCost);
+    $("roi").textContent = error.message;
 
-  const statusBox = $("operationStatus");
-
-  if(r.status === "profit"){
-    statusBox.innerHTML = `
-      <div class="big" style="color:var(--green)">
-        ✅ OPERACIÓN RENTABLE
-      </div>
-      <div class="small">
-        La venta actual está por encima del punto de equilibrio.
+    $("resultLines").innerHTML = `
+      <div class="notice" style="margin-top:10px;color:#ffb6c0;border-color:#67313c">
+        ⚠️ ${escapeHTML(error.message)}
       </div>
     `;
-  }
 
-  if(r.status === "loss"){
-    statusBox.innerHTML = `
-      <div class="big" style="color:var(--red)">
-        ❌ OPERACIÓN CON PÉRDIDA
-      </div>
-      <div class="small">
-        La venta actual está por debajo del punto de equilibrio.
-      </div>
-    `;
+    $("flow").innerHTML = "";
   }
-
-  if(r.status === "even"){
-    statusBox.innerHTML = `
-      <div class="big" style="color:var(--yellow)">
-        ⚖️ PUNTO DE EQUILIBRIO
-      </div>
-      <div class="small">
-        La operación recupera exactamente el costo total.
-      </div>
-    `;
-  }
-
-  renderBreakdown(r);
-  renderScenarios(r);
-  renderComparison(r);
 }
 
-function renderBreakdown(r){
+/* =========================================================
+   RESULTADO
+========================================================= */
+
+function renderResult(d){
+
+  $("profit").textContent = money(d.profit);
+
+  $("profit").className =
+    d.profit >= 0
+      ? "profit positive"
+      : "profit negative";
+
+  $("roi").textContent = "ROI: " + pct(d.roi);
 
   let html = "";
 
-  if(r.route === "bank"){
+  if(d.route === "bank"){
 
-    html += `
-      <div class="result-grid">
-
-        <div class="result">
-          <div class="result-label">1. CUP NETO DESEADO</div>
-          <div class="result-value">${cup(r.cashReceived)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">2. CUP BRUTO NECESARIO</div>
-          <div class="result-value">${cup(r.bankGross)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">3. DESCUENTO BANCARIO</div>
-          <div class="result-value red">- ${cup(r.bankDiscountAmount)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">4. EFECTIVO RECIBIDO</div>
-          <div class="result-value">${cup(r.cashReceived)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">5. USD COMPRADOS</div>
-          <div class="result-value">${usd(r.usdAmount)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">6. USDT OBTENIDOS</div>
-          <div class="result-value">${usdt(r.usdtObtained)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">7. VENTA DE USDT</div>
-          <div class="result-value">${cup(r.grossFinal)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">8. GASTOS</div>
-          <div class="result-value">${cup(r.expenses)}</div>
-        </div>
-
-      </div>
-
-      <div class="formula">
-        <strong>Paso 1:</strong>
-        ${money(r.cashReceived)} CUP ÷
-        precio USD en efectivo =
-        ${usd(r.usdAmount)}.
-        <br><br>
-
-        <strong>Paso 2:</strong>
-        ${usd(r.usdAmount)} ÷
-        tasa Cell ${rate(r.cellRate)} =
-        ${usdt(r.usdtObtained)}.
-        <br><br>
-
-        <strong>Paso 3:</strong>
-        ${usdt(r.usdtObtained)} ×
-        ${money(r.usdtSalePrice)} CUP =
-        ${cup(r.grossFinal)}.
-        <br><br>
-
-        <strong>Paso 4:</strong>
-        ${cup(r.grossFinal)} −
-        ${cup(r.investment)} −
-        ${cup(r.expenses)} =
-        <strong>${cup(r.netProfit)}</strong>.
-      </div>
-    `;
-
-  }else{
-
-    const transferPrice = number("transferUsdPrice");
-
-    html += `
-      <div class="result-grid">
-
-        <div class="result">
-          <div class="result-label">1. USD COMPRADOS</div>
-          <div class="result-value">${usd(r.usdAmount)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">2. PRECIO POR USD</div>
-          <div class="result-value">${cup(transferPrice)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">3. INVERSIÓN</div>
-          <div class="result-value">${cup(r.investment)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">4. USDT OBTENIDOS</div>
-          <div class="result-value">${usdt(r.usdtObtained)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">5. VENTA DE USDT</div>
-          <div class="result-value">${cup(r.grossFinal)}</div>
-        </div>
-
-        <div class="result">
-          <div class="result-label">6. GASTOS</div>
-          <div class="result-value">${cup(r.expenses)}</div>
-        </div>
-
-      </div>
-
-      <div class="formula">
-        <strong>Paso 1:</strong>
-        ${usd(r.usdAmount)} ×
-        ${cup(transferPrice)} por USD =
-        <strong>${cup(r.investment)}</strong>.
-        <br><br>
-
-        <strong>Paso 2:</strong>
-        ${usd(r.usdAmount)} ÷
-        tasa Cell ${rate(r.cellRate)} =
-        ${usdt(r.usdtObtained)}.
-        <br><br>
-
-        <strong>Paso 3:</strong>
-        ${usdt(r.usdtObtained)} ×
-        ${cup(r.usdtSalePrice)} =
-        ${cup(r.grossFinal)}.
-        <br><br>
-
-        <strong>Paso 4:</strong>
-        ${cup(r.grossFinal)} −
-        ${cup(r.investment)} −
-        ${cup(r.expenses)} =
-        <strong>${cup(r.netProfit)}</strong>.
-      </div>
-    `;
+    html += line("CUP bruto retirado del banco",money(d.bankGross));
+    html += line("Descuento bancario",money(d.bankDiscountAmount));
+    html += line("CUP neto en efectivo",money(d.bankNet));
   }
 
-  $("breakdown").innerHTML = html;
-}
-  function renderScenarios(r){
+  html += line("USD obtenidos",usd(d.usdAmount));
+  html += line("Inversión total",money(d.investment));
+  html += line("Tasa Cell",d.cell.toFixed(6));
+  html += line("USDT obtenidos",usdt(d.usdtAmount));
+  html += line("Precio venta USDT",money(d.sell));
+  html += line("CUP finales",money(d.finalCup));
+  html += line("Otros gastos",money(d.expenses));
+  html += line(
+    "Ganancia neta",
+    `<span class="${d.profit >= 0 ? "green":"red"}">${money(d.profit)}</span>`
+  );
+  html += line("ROI",pct(d.roi));
 
-  const ids = [
-    "scenario1",
-    "scenario2",
-    "scenario3",
-    "scenario4",
-    "scenario5",
-    "scenario6"
-  ];
-
-  let html = `
-    <div style="
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:9px;
-    ">
-  `;
-
-  ids.forEach((id,index)=>{
-
-    const price = parseFloat($(id).value);
-
-    if(!Number.isFinite(price) || price <= 0){
-      return;
-    }
-
-    const final = r.usdtObtained * price;
-    const profit = final - r.investment - r.expenses;
-    const roi = r.investment > 0
-      ? profit / r.investment * 100
-      : 0;
-
-    const profitable = profit > 0;
-    const exact = Math.abs(profit) < 0.000001;
-
-    let cls = profitable ? "green" : "red";
-    if(exact) cls = "yellow";
-
-    let icon = profitable ? "📈" : "📉";
-    if(exact) icon = "⚖️";
-
-    html += `
-      <div class="result">
-        <div class="result-label">
-          ${icon} ESCENARIO ${index + 1}
-        </div>
-
-        <div class="result-value">
-          ${cup(price)}
-        </div>
-
-        <div style="
-          margin-top:9px;
-          color:#7f92a8;
-          font-size:9px;
-          line-height:1.7;
-        ">
-          Resultado:
-          <strong style="color:#dbe8f5">
-            ${cup(final)}
-          </strong>
-          <br>
-
-          Ganancia:
-          <strong class="${cls}">
-            ${cup(profit)}
-          </strong>
-          <br>
-
-          ROI:
-          <strong class="${cls}">
-            ${percent(roi)}
-          </strong>
-        </div>
-      </div>
-    `;
-  });
-
-  html += "</div>";
-
-  $("scenarios").innerHTML = html;
+  $("resultLines").innerHTML = html;
 }
 
-function renderComparison(r){
-
-  const usdAmount = r.usdAmount;
-
-  if(!Number.isFinite(usdAmount) || usdAmount <= 0){
-    $("compareBox").innerHTML = "";
-    return;
-  }
-
-  const cell = r.cellRate;
-  const sale = r.usdtSalePrice;
-  const expenses = r.expenses;
-
-  const usdtAmount = usdAmount / cell;
-  const finalCUP = usdtAmount * sale;
-
-  const cashPrice = number("cashUsdPrice");
-  const transferPrice = number("transferUsdPrice");
-  const discount = number("bankDiscount") / 100;
-
-  if(
-    !Number.isFinite(cashPrice) ||
-    cashPrice <= 0 ||
-    !Number.isFinite(transferPrice) ||
-    transferPrice <= 0 ||
-    !Number.isFinite(discount) ||
-    discount < 0 ||
-    discount >= 1
-  ){
-    $("compareBox").innerHTML = `
-      <div class="error">
-        No se puede completar la comparación porque faltan datos
-        válidos de ambas vías.
-      </div>
-    `;
-    return;
-  }
-
-  /*
-    Para comparar justamente ambas vías usamos la misma cantidad
-    de USD y las mismas condiciones posteriores.
-  */
-
-  const bankNetNeeded = usdAmount * cashPrice;
-  const bankInvestment = bankNetNeeded / (1 - discount);
-
-  const transferInvestment = usdAmount * transferPrice;
-
-  const bankProfit =
-    finalCUP - bankInvestment - expenses;
-
-  const transferProfit =
-    finalCUP - transferInvestment - expenses;
-
-  const bankROI =
-    bankInvestment > 0
-      ? bankProfit / bankInvestment * 100
-      : 0;
-
-  const transferROI =
-    transferInvestment > 0
-      ? transferProfit / transferInvestment * 100
-      : 0;
-
-  const bankBE =
-    (bankInvestment + expenses) / usdtAmount;
-
-  const transferBE =
-    (transferInvestment + expenses) / usdtAmount;
-
-  let best = "";
-
-  if(bankProfit > transferProfit){
-    best = `
-      <div class="status-box">
-        <div class="big" style="color:var(--green)">
-          🏦 LA VÍA BANCO ES MÁS RENTABLE
-        </div>
-        <div class="small">
-          Diferencia de ganancia:
-          ${cup(bankProfit - transferProfit)}
-        </div>
-      </div>
-    `;
-  }else if(transferProfit > bankProfit){
-    best = `
-      <div class="status-box">
-        <div class="big" style="color:var(--green)">
-          💸 LA VÍA TRANSFERENCIA ES MÁS RENTABLE
-        </div>
-        <div class="small">
-          Diferencia de ganancia:
-          ${cup(transferProfit - bankProfit)}
-        </div>
-      </div>
-    `;
-  }else{
-    best = `
-      <div class="status-box">
-        <div class="big" style="color:var(--yellow)">
-          ⚖️ AMBAS VÍAS GENERAN LA MISMA GANANCIA
-        </div>
-      </div>
-    `;
-  }
-
-  $("compareUsd").textContent = usd(usdAmount);
-  $("compareUsdt").textContent = usdt(usdtAmount);
-
-  $("compareBox").innerHTML = `
-
-    <div class="result-grid">
-
-      <div class="result">
-        <div class="result-label">🏦 BANCO — CAPITAL</div>
-        <div class="result-value">${cup(bankInvestment)}</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">💸 TRANSFERENCIA — CAPITAL</div>
-        <div class="result-value">${cup(transferInvestment)}</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">🏦 BANCO — RESULTADO</div>
-        <div class="result-value">${cup(finalCUP)}</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">💸 TRANSFERENCIA — RESULTADO</div>
-        <div class="result-value">${cup(finalCUP)}</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">🏦 BANCO — GANANCIA</div>
-        <div class="result-value ${bankProfit >= 0 ? "green" : "red"}">
-          ${cup(bankProfit)}
-        </div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">💸 TRANSFERENCIA — GANANCIA</div>
-        <div class="result-value ${transferProfit >= 0 ? "green" : "red"}">
-          ${cup(transferProfit)}
-        </div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">🏦 BANCO — ROI</div>
-        <div class="result-value ${bankROI >= 0 ? "green" : "red"}">
-          ${percent(bankROI)}
-        </div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">💸 TRANSFERENCIA — ROI</div>
-        <div class="result-value ${transferROI >= 0 ? "green" : "red"}">
-          ${percent(transferROI)}
-        </div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">🏦 EQUILIBRIO BANCO</div>
-        <div class="result-value">${cup(bankBE)}</div>
-      </div>
-
-      <div class="result">
-        <div class="result-label">💸 EQUILIBRIO TRANSFERENCIA</div>
-        <div class="result-value">${cup(transferBE)}</div>
-      </div>
-
-    </div>
-
-    ${best}
-
-  `;
-}
-
-function getValues(){
-
-  const values = {
-    route:getRoute(),
-    bankNet:$("bankNet").value,
-    bankDiscount:$("bankDiscount").value,
-    cashUsdPrice:$("cashUsdPrice").value,
-    usdAmount:$("usdAmount").value,
-    transferUsdPrice:$("transferUsdPrice").value,
-    cellRate:$("cellRate").value,
-    usdtPrice:$("usdtPrice").value,
-    expenses:$("expenses").value,
-    scenario1:$("scenario1").value,
-    scenario2:$("scenario2").value,
-    scenario3:$("scenario3").value,
-    scenario4:$("scenario4").value,
-    scenario5:$("scenario5").value,
-    scenario6:$("scenario6").value
-  };
-
-  return values;
-}
-
-function saveCurrentValues(){
-
-  try{
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(getValues())
-    );
-  }catch(e){}
-}
-
-function loadValues(){
-
-  let saved = null;
-
-  try{
-    saved = JSON.parse(
-      localStorage.getItem(STORAGE_KEY) || "null"
-    );
-  }catch(e){
-    saved = null;
-  }
-
-  const v = saved || defaults;
-
-  $("bankNet").value = v.bankNet;
-  $("bankDiscount").value = v.bankDiscount;
-  $("cashUsdPrice").value = v.cashUsdPrice;
-  $("usdAmount").value = v.usdAmount;
-  $("transferUsdPrice").value = v.transferUsdPrice;
-  $("cellRate").value = v.cellRate;
-  $("usdtPrice").value = v.usdtPrice;
-  $("expenses").value = v.expenses;
-
-  $("scenario1").value = v.scenario1;
-  $("scenario2").value = v.scenario2;
-  $("scenario3").value = v.scenario3;
-  $("scenario4").value = v.scenario4;
-  $("scenario5").value = v.scenario5;
-  $("scenario6").value = v.scenario6;
-
-  const routeRadio =
-    document.querySelector(
-      `input[name="route"][value="${v.route || "transfer"}"]`
-    );
-
-  if(routeRadio){
-    routeRadio.checked = true;
-  }
-}
-
-function resetDefaults(){
-
-  $("bankNet").value = defaults.bankNet;
-  $("bankDiscount").value = defaults.bankDiscount;
-  $("cashUsdPrice").value = defaults.cashUsdPrice;
-  $("usdAmount").value = defaults.usdAmount;
-  $("transferUsdPrice").value = defaults.transferUsdPrice;
-  $("cellRate").value = defaults.cellRate;
-  $("usdtPrice").value = defaults.usdtPrice;
-  $("expenses").value = defaults.expenses;
-
-  $("scenario1").value = defaults.scenario1;
-  $("scenario2").value = defaults.scenario2;
-  $("scenario3").value = defaults.scenario3;
-  $("scenario4").value = defaults.scenario4;
-  $("scenario5").value = defaults.scenario5;
-  $("scenario6").value = defaults.scenario6;
-
-  document.querySelector(
-    'input[name="route"][value="transfer"]'
-  ).checked = true;
-
-  saveCurrentValues();
-  updateRoute();
-}
-Dary Allen Mendoza
-	
-2:55 p.m. (hace 0 minutos)
-	
-	
-para mí
-Parece que este mensaje está en inglés
-function newOperation(){
-
-  clearError();
-
-  currentResult = null;
-
-  $("flowInvestment").textContent = "—";
-  $("flowUsd").textContent = "—";
-  $("flowCell").textContent = "—";
-  $("flowUsdt").textContent = "—";
-  $("flowSale").textContent = "—";
-  $("flowFinal").textContent = "—";
-  $("flowProfit").textContent = "—";
-
-  $("summaryRoute").textContent = "—";
-  $("summaryInvestment").textContent = "—";
-  $("summaryUsd").textContent = "—";
-  $("summaryCell").textContent = "—";
-  $("summaryUsdt").textContent = "—";
-  $("summaryUsdtPrice").textContent = "—";
-  $("summaryFinal").textContent = "—";
-  $("summaryProfit").textContent = "—";
-  $("summaryRoi").textContent = "—";
-  $("summaryBreakEven").textContent = "—";
-
-  $("beCurrent").textContent = "—";
-  $("bePrice").textContent = "—";
-  $("beMargin").textContent = "—";
-  $("beTotalCost").textContent = "—";
-
-  $("breakdown").innerHTML = `
-    <div class="formula">
-      Introduce los datos de la nueva operación y presiona
-      <strong>CALCULAR OPERACIÓN</strong>.
+function line(label,value){
+  return `
+    <div class="line">
+      <span>${label}</span>
+      <strong>${value}</strong>
     </div>
   `;
-
-  $("scenarios").innerHTML = `
-    <div class="formula">
-      Los escenarios aparecerán después de realizar el cálculo.
-    </div>
-  `;
-
-  $("compareBox").innerHTML = `
-    <div class="formula">
-      La comparación de ambas vías aparecerá después del cálculo.
-    </div>
-  `;
-
-  $("compareUsd").textContent = "—";
-  $("compareUsdt").textContent = "—";
-
-  $("operationStatus").innerHTML = `
-    <div class="big">—</div>
-    <div class="small">
-      Introduce los datos para iniciar una nueva operación.
-    </div>
-  `;
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
 }
 
-function getHistory(){
+/* =========================================================
+   FLUJO
+========================================================= */
 
-  try{
-    const history =
-      JSON.parse(
-        localStorage.getItem(HISTORY_KEY) || "[]"
-      );
-
-    return Array.isArray(history) ? history : [];
-
-  }catch(e){
-    return [];
-  }
-}
-
-function setHistory(history){
-
-  try{
-    localStorage.setItem(
-      HISTORY_KEY,
-      JSON.stringify(history)
-    );
-  }catch(e){}
-}
-
-function saveOperation(){
-
-  const result = calculate(true);
-
-  if(!result){
-    return;
-  }
-
-  const history = getHistory();
-
-  const record = {
-    id:Date.now(),
-    date:new Date().toLocaleString("es-ES"),
-    route:result.route,
-    usd:result.usdAmount,
-    cell:result.cellRate,
-    usdtPrice:result.usdtSalePrice,
-    usdt:result.usdtObtained,
-    investment:result.investment,
-    final:result.grossFinal,
-    expenses:result.expenses,
-    profit:result.netProfit,
-    roi:result.roi,
-    breakEven:result.breakEven
-  };
-
-  history.unshift(record);
-
-  if(history.length > 50){
-    history.length = 50;
-  }
-
-  setHistory(history);
-
-  renderHistory();
-
-  const btn = $("saveBtn");
-
-  const oldText = btn.textContent;
-
-  btn.textContent = "✅ OPERACIÓN GUARDADA";
-
-  setTimeout(()=>{
-    btn.textContent = oldText;
-  },1500);
-}
-
-function deleteHistory(){
-
-  const history = getHistory();
-
-  if(history.length === 0){
-    renderHistory();
-    return;
-  }
-
-  const confirmDelete =
-    confirm(
-      "¿Seguro que quieres eliminar todo el historial?"
-    );
-
-  if(!confirmDelete){
-    return;
-  }
-
-  setHistory([]);
-
-  renderHistory();
-}
-
-function renderHistory(){
-
-  const history = getHistory();
-
-  if(history.length === 0){
-
-    $("history").innerHTML = `
-      <div class="formula">
-        No hay operaciones guardadas todavía.
-      </div>
-    `;
-
-    return;
-  }
+function renderFlow(d){
 
   let html = "";
 
-  history.forEach((r,index)=>{
+  if(d.route === "bank"){
 
-    const profitable = r.profit > 0;
-    const exact = Math.abs(r.profit) < 0.000001;
+    html += flowItem(
+      "🏦",
+      "Banco",
+      "Retiras " + money(d.bankGross)
+    );
 
-    let color = profitable
-      ? "var(--green)"
-      : "var(--red)";
+    html += arrow();
 
-    if(exact){
-      color = "var(--yellow)";
-    }
+    html += flowItem(
+      "💵",
+      "Efectivo",
+      "Recibes " + money(d.bankNet)
+    );
 
-    html += `
-      <div class="result"
-           style="margin-bottom:9px">
+    html += arrow();
 
-        <div style="
-          display:flex;
-          justify-content:space-between;
-          align-items:flex-start;
-          gap:10px;
-        ">
+    html += flowItem(
+      "💲",
+      "Compra USD",
+      usd(d.usdAmount) +
+      " a " +
+      money(d.usdRate)
+    );
 
-          <div>
-            <div style="
-              font-size:12px;
-              font-weight:800;
-            ">
-              ${r.route === "bank"
-                ? "🏦 OPERACIÓN MEDIANTE BANCO"
-                : "💸 COMPRA USD POR TRANSFERENCIA"}
-            </div>
+  }else{
 
-            <div style="
-              color:#70849b;
-              font-size:9px;
-              margin-top:4px;
-            ">
-              ${escapeHtml(r.date)}
-            </div>
-          </div>
+    html += flowItem(
+      "💸",
+      "Transferencia",
+      usd(d.usdAmount) +
+      " a " +
+      money(d.usdRate)
+    );
+  }
 
-          <div style="
-            color:${color};
-            font-size:13px;
-            font-weight:800;
-            white-space:nowrap;
-          ">
-            ${cup(r.profit)}
-          </div>
+  html += arrow();
 
-        </div>
-
-        <div style="
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          gap:7px;
-          margin-top:10px;
-        ">
-
-          <div>
-            <div class="result-label">USD</div>
-            <div style="font-size:10px;font-weight:700">
-              ${usd(r.usd)}
-            </div>
-          </div>
-
-          <div>
-            <div class="result-label">CELL</div>
-            <div style="font-size:10px;font-weight:700">
-              ${rate(r.cell)}
-            </div>
-          </div>
-
-          <div>
-            <div class="result-label">USDT</div>
-            <div style="font-size:10px;font-weight:700">
-              ${usdt(r.usdt)}
-            </div>
-          </div>
-
-          <div>
-            <div class="result-label">VENTA USDT</div>
-            <div style="font-size:10px;font-weight:700">
-              ${cup(r.usdtPrice)}
-            </div>
-          </div>
-
-          <div>
-            <div class="result-label">INVERSIÓN</div>
-            <div style="font-size:10px;font-weight:700">
-              ${cup(r.investment)}
-            </div>
-          </div>
-
-          <div>
-            <div class="result-label">RESULTADO</div>
-            <div style="font-size:10px;font-weight:700">
-              ${cup(r.final)}
-            </div>
-          </div>
-
-          <div>
-            <div class="result-label">ROI</div>
-            <div style="font-size:10px;font-weight:700;color:${color}">
-              ${percent(r.roi)}
-            </div>
-          </div>
-
-          <div>
-            <div class="result-label">EQUILIBRIO</div>
-            <div style="font-size:10px;font-weight:700">
-              ${cup(r.breakEven)}
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    `;
-  });
-
-  $("history").innerHTML = html;
-}
-
-function attachAutoSave(){
-
-  const inputs = document.querySelectorAll(
-    "input[type='number']"
+  html += flowItem(
+    "📲",
+    "Cell",
+    usdt(d.usdtAmount)
   );
 
-  inputs.forEach(input=>{
+  html += arrow();
 
-    input.addEventListener("input",()=>{
+  html += flowItem(
+    "💰",
+    "Venta USDT",
+    money(d.finalCup)
+  );
 
-      saveCurrentValues();
+  html += arrow();
 
-      if(currentResult){
-        calculate(false);
-      }
+  html += flowItem(
+    d.profit >= 0 ? "📈":"📉",
+    "Resultado",
+    money(d.profit)
+  );
 
-    });
-
-  });
-
+  $("flow").innerHTML = html;
 }
 
-$("calculateBtn").addEventListener("click",()=>{
-  calculate(true);
-});
+function flowItem(icon,title,text){
 
-$("resetBtn").addEventListener("click",()=>{
-  resetDefaults();
-});
+  return `
+    <div class="flow-item">
+      <strong>${icon} ${title}</strong><br>
+      <span style="color:#9eb2c7">${text}</span>
+    </div>
+  `;
+}
 
-$("newOperationBtn").addEventListener("click",()=>{
-  newOperation();
-});
+function arrow(){
+  return `<div class="flow-arrow">↓</div>`;
+}
 
-$("saveBtn").addEventListener("click",()=>{
-  saveOperation();
-});
+/* =========================================================
+   EQUILIBRIO
+========================================================= */
 
-$("deleteHistoryBtn").addEventListener("click",()=>{
-  deleteHistory();
-});
+function renderWeekly(d){
 
-document
-  .querySelectorAll('input[name="route"]')
-  .forEach(radio=>{
-    radio.addEventListener("change",()=>{
-      updateRoute();
-      saveCurrentValues();
-    });
-  });
-
-[
-  "scenario1",
-  "scenario2",
-  "scenario3",
-  "scenario4",
-  "scenario5",
-  "scenario6"
-].forEach(id=>{
-  $(id).addEventListener("input",()=>{
-    saveCurrentValues();
-
-    if(currentResult){
-      renderScenarios(currentResult);
-    }
-  });
-});
-
-loadValues();
-attachAutoSave();
-updateRoute();
-renderHistory();
-
-setTimeout(()=>{
-  calculate(false);
-},100);
-  </script>
-
-</body>
-</html>
+  $("breakEven").textContent = money
